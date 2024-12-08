@@ -11,7 +11,7 @@
 
 <h3> Getting Started</h3>
 
-This project was bootstrapped with [Python](https://github.com/phamhuuloc219/InformationSecurity).
+This project was bootstrapped with [Python](https://github.com/phamhuuloc219/InformationSecurity).<br>
 In the project directory, you can run:
 
 ### `pip install guizero`
