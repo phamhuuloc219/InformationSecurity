@@ -9,9 +9,10 @@
     </a>
 </p>
 
-<h3> Getting Started</h3>
+<h2 align="left"> Getting Started</h3>
 
-This project was bootstrapped with [Python](https://github.com/phamhuuloc219/InformationSecurity).<br>
-In the project directory, you can run:
+This project was bootstrapped with [Python](https://github.com/phamhuuloc219/InformationSecurity).
+<br>
+<h3 align="left">In the project directory, you can run:</h3>
 
 ### `pip install guizero`
