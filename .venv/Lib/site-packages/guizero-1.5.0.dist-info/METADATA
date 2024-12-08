@@ -1,0 +1,57 @@
+Metadata-Version: 2.1
+Name: guizero
+Version: 1.5.0
+Summary: Python module to allow learners to easily create GUIs
+Home-page: https://github.com/lawsie/guizero
+Author: Laura Sach
+Author-email: laura.sach@raspberrypi.org
+License: BSD
+Keywords: GUI,guizero,interface
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Topic :: Education
+Classifier: Topic :: Software Development :: User Interfaces
+Classifier: Topic :: Education
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3
+Description-Content-Type: text/markdown
+License-File: license.txt
+Provides-Extra: images
+Requires-Dist: pillow >=4.3.0 ; extra == 'images'
+
+# guizero
+
+guizero is designed to allow new learners to quickly and easily create GUIs for their programs.
+
+There is comprehensive documentation at [lawsie.github.io/guizero](https://lawsie.github.io/guizero/)
+
+## Install
+
+If you can download and unzip a file, you can [install guizero](https://lawsie.github.io/guizero/#easy-install) - **no special permissions or administrator rights are required**.
+
+If you have administrator rights and are connected to the internet, you can [use the command line to install or upgrade guizero](https://lawsie.github.io/guizero/#install-using-command-line).
+
+guizero only requires `tkinter` to be installed, which is included with a standard Python installation on all platforms except Linux.
+A python module to allow learners to easily create GUIs. guizero is designed to be used by new learners.
+
+## Use
+
+guizero is simple to use, taking away much of the complexity of creating simple GUIs.
+
+```python
+from guizero import App, Text
+app = App(title="Hello world")
+message = Text(app, text="Welcome to the Hello world app!")
+app.display()
+```
+
