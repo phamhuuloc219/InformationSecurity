@@ -8,8 +8,8 @@
         <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/facebook.svg" alt="facebook.com/phloc2193" height="30" width="40" />
     </a>
 </p>
-
-<h2 align="left"> Getting Started</h3>
+<hr>
+<h2 align="left"> Getting Started</h2>
 
 This project was bootstrapped with [Python](https://github.com/phamhuuloc219/InformationSecurity).
 <br>
