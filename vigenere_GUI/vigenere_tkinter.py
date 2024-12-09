@@ -80,24 +80,24 @@ def show_vigenere_table():
     table_window = Toplevel(root)
     table_window.title("Bảng mã hóa Vigenere")
     
-    table_window.geometry("600x500")
+    table_window.geometry("800x700")
     
     for i in range(27):
-        table_window.grid_columnconfigure(i, weight=1, minsize=30)
+        table_window.grid_columnconfigure(i, weight=1, minsize=25)
     for i in range(27):
-        table_window.grid_rowconfigure(i, weight=1, minsize=30)
-
+        table_window.grid_rowconfigure(i, weight=1, minsize=25)
+        
     for col_index, char in enumerate(alphabet):
-        label = tk.Label(table_window, text=char, font=("Arial", 10), width=4, height=2, borderwidth=1, relief="solid")
+        label = tk.Label(table_window, text=char, font=("Arial", 8), width=3, height=2, borderwidth=1, relief="solid")
         label.grid(row=0, column=col_index + 1, sticky="nsew")
-    
+        
     for row_index, char in enumerate(alphabet):
-        label = tk.Label(table_window, text=char, font=("Arial", 10), width=4, height=2, borderwidth=1, relief="solid")
+        label = tk.Label(table_window, text=char, font=("Arial", 8), width=3, height=2, borderwidth=1, relief="solid")
         label.grid(row=row_index + 1, column=0, sticky="nsew")
-
+        
     for row_index, row in enumerate(vigenere_table):
         for col_index, char in enumerate(row):
-            label = tk.Label(table_window, text=char, font=("Arial", 10), width=4, height=2, borderwidth=1, relief="solid")
+            label = tk.Label(table_window, text=char, font=("Arial", 8), width=3, height=2, borderwidth=1, relief="solid")
             label.grid(row=row_index + 1, column=col_index + 1, sticky="nsew")
 
 root = tk.Tk()
