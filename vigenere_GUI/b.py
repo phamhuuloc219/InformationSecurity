@@ -178,7 +178,7 @@ def convert_to_telex(text):
     
     return text
 
-def vigenere_encrypt(plaintext, key):
+def vigenere_encrypt_vietnamese(plaintext, key):
     ciphertext = []
     key_index = 0
     key = key.lower()
@@ -197,25 +197,6 @@ def vigenere_encrypt(plaintext, key):
 
     return ''.join(ciphertext)
 
-def vigenere_decrypt(ciphertext, key):
-    plaintext = []
-    key_index = 0
-    key = key.lower()
-
-    for char in ciphertext:
-        if char.isalpha():
-            is_upper = char.isupper()
-            base = ord('A') if is_upper else ord('a')
-            key_char = key[key_index % len(key)]
-            shift = ord(key_char) - ord('a')
-            decrypted_char = chr((ord(char) - base - shift) % 26 + base)
-            plaintext.append(decrypted_char)
-            key_index += 1
-        else:
-            plaintext.append(char)
-
-    return ''.join(plaintext)
-
 def select_input_file():
     global input_file_path
     input_file_path = filedialog.askopenfilename(
@@ -225,7 +206,7 @@ def select_input_file():
     if input_file_path:
         input_file_label.config(text=f"File: {os.path.basename(input_file_path)}")
 
-def process_files():
+def process_files_vietnamese():
     if not input_file_path:
         messagebox.showwarning("Cảnh báo", "Vui lòng chọn file INPUT.DAT!")
         return
@@ -240,7 +221,7 @@ def process_files():
             return
 
         telex_plaintext = convert_to_telex(plaintext)
-        ciphertext = vigenere_encrypt(telex_plaintext, key)
+        ciphertext = vigenere_encrypt_vietnamese(telex_plaintext, key)
 
         output_file_path = os.path.join(os.path.dirname(input_file_path), "OUTPUT.DAT")
         with open(output_file_path, "w", encoding="utf-8") as outfile:
@@ -251,7 +232,7 @@ def process_files():
     except Exception as e:
         messagebox.showerror("Lỗi", f"Đã xảy ra lỗi: {e}")
 
-def open_output_file():
+def open_output_file_vietnamese():
     if not input_file_path:
         messagebox.showwarning("Cảnh báo", "Vui lòng chọn file INPUT.DAT trước!")
         return
@@ -272,7 +253,7 @@ def convert_from_telex(telex_text):
     return telex_text
 
 # Cập nhật hàm giải mã Vigenère để chuyển từ Telex về Tiếng Việt
-def vigenere_decrypt(ciphertext, key):
+def vigenere_decrypt_vietnamese(ciphertext, key):
     # Giải mã Vigenère ban đầu
     plaintext = []
     key_index = 0
@@ -295,7 +276,7 @@ def vigenere_decrypt(ciphertext, key):
     return convert_from_telex(decrypted_text)
 
 # Cập nhật hàm giải mã file
-def decrypt_file():
+def decrypt_file_vietnamese():
     if not input_file_path:
         messagebox.showwarning("Cảnh báo", "Vui lòng chọn file INPUT.DAT trước!")
         return
@@ -317,7 +298,7 @@ def decrypt_file():
             return
 
         # Giải mã văn bản
-        plaintext = vigenere_decrypt(ciphertext, key)
+        plaintext = vigenere_decrypt_vietnamese(ciphertext, key)
 
         # Hiển thị kết quả giải mã
         messagebox.showinfo("Kết quả giải mã", f"Văn bản giải mã:\n{plaintext}")
@@ -348,15 +329,15 @@ button_frame = tk.Frame(root)
 button_frame.pack(pady=20)
 
 # Nút mã hóa file
-process_button = tk.Button(button_frame, text="Mã hóa file", font=("Arial", 12), command=process_files, bg="lightgreen")
+process_button = tk.Button(button_frame, text="Mã hóa file", font=("Arial", 12), command=process_files_vietnamese, bg="lightgreen")
 process_button.grid(row=0, column=0, padx=10)
 
 # Nút mở file OUTPUT
-open_output_button = tk.Button(root, text="Mở file OUTPUT", font=("Arial", 12), command=open_output_file, bg="lightcoral")
+open_output_button = tk.Button(root, text="Mở file OUTPUT", font=("Arial", 12), command=open_output_file_vietnamese, bg="lightcoral")
 open_output_button.pack(pady=10)
 
 # Thêm nút giải mã vào giao diện
-decrypt_button = tk.Button(root, text="Giải mã file", font=("Arial", 12), command=decrypt_file, bg="lightyellow")
+decrypt_button = tk.Button(root, text="Giải mã file", font=("Arial", 12), command=decrypt_file_vietnamese, bg="lightyellow")
 decrypt_button.pack(pady=10)
 
 
