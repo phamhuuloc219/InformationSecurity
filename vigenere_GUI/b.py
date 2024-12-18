@@ -262,25 +262,39 @@ def open_output_file():
     else:
         messagebox.showerror("Lỗi", "Không tìm thấy file OUTPUT.DAT! Vui lòng mã hóa trước.")
         
-# Hàm giải mã Vigenère
+# Tạo từ điển ngược từ telex_dict
+reverse_telex_dict = {value: key for key, value in telex_dict.items()}
+
+# Hàm chuyển đổi từ Telex về ký tự Tiếng Việt
+def convert_from_telex(telex_text):
+    for telex_char, vi_char in reverse_telex_dict.items():
+        telex_text = telex_text.replace(telex_char, vi_char)
+    return telex_text
+
+# Cập nhật hàm giải mã Vigenère để chuyển từ Telex về Tiếng Việt
 def vigenere_decrypt(ciphertext, key):
-    ciphertext = ciphertext.upper()
-    key = key.upper()
-    plaintext = ""
+    # Giải mã Vigenère ban đầu
+    plaintext = []
     key_index = 0
+    key = key.lower()
 
     for char in ciphertext:
         if char.isalpha():
-            shift = ord(key[key_index]) - ord('A')
-            decrypted_char = chr((ord(char) - ord('A') - shift) % 26 + ord('A'))
-            plaintext += decrypted_char
-            key_index = (key_index + 1) % len(key)
+            is_upper = char.isupper()
+            base = ord('A') if is_upper else ord('a')
+            key_char = key[key_index % len(key)]
+            shift = ord(key_char) - ord('a')
+            decrypted_char = chr((ord(char) - base - shift) % 26 + base)
+            plaintext.append(decrypted_char)
+            key_index += 1
         else:
-            plaintext += char
+            plaintext.append(char)
 
-    return plaintext
+    # Chuyển đổi từ Telex về Tiếng Việt
+    decrypted_text = ''.join(plaintext)
+    return convert_from_telex(decrypted_text)
 
-# Hàm giải mã từ file OUTPUT.DAT
+# Cập nhật hàm giải mã file
 def decrypt_file():
     if not input_file_path:
         messagebox.showwarning("Cảnh báo", "Vui lòng chọn file INPUT.DAT trước!")
