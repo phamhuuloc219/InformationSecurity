@@ -156,13 +156,13 @@ def show_vigenere_table():
 # Bảng chữ cái Tiếng Việt
 VIETNAMESE_ALPHABET = "AĂÂBCDĐEÊGHIKLMNOÔƠPQRSTUƯVXY" 
 
-# Hiển thị bảng mã hóa Vigenère (Tiếng Việt)
+# Hiển thị bảng mã hóa Vigenere (Tiếng Việt)
 def show_vigenere_table_vietnamese():
     table_window = Toplevel(root)
     table_window.title("Bảng mã hóa Tiếng Việt")
     table_window.geometry("1500x900")
 
-    tk.Label(table_window, text="Bảng mã hóa Vigenère Tiếng Việt", font=("Arial", 14), fg="blue").pack(pady=10)
+    tk.Label(table_window, text="Bảng mã hóa Vigenere Tiếng Việt", font=("Arial", 14), fg="blue").pack(pady=10)
 
     frame = tk.Frame(table_window)
     frame.pack()
@@ -343,59 +343,81 @@ def decrypt_file_vietnamese():
     except Exception as e:
         messagebox.showerror("Lỗi", f"Đã xảy ra lỗi: {e}")
 
-# Giao diện tkinter
+# Giao diện
 root = tk.Tk()
-root.title("Mã hóa Vigenère Tiếng Anh và Tiếng Việt")
-root.geometry("600x500")
+root.title("Mã hóa Vigenere")
+root.state('zoomed')  # Lắp đầy màn hình
 
 input_file_path = None
 
+# Tạo một frame chính để căn giữa các thành phần
+main_frame = tk.Frame(root)
+main_frame.grid(row=0, column=0, sticky='nsew')
+
+# Cấu hình lưới để giúp căn giữa
+root.grid_rowconfigure(0, weight=1)
+root.grid_columnconfigure(0, weight=1)
+
+# Cấu hình các dòng và cột trong main_frame
+main_frame.grid_rowconfigure(0, weight=1)
+main_frame.grid_rowconfigure(1, weight=1)
+main_frame.grid_rowconfigure(2, weight=1)
+main_frame.grid_rowconfigure(3, weight=1)
+
+main_frame.grid_columnconfigure(0, weight=1)
+
+# Frame để căn giữa các thành phần (như file input và khóa)
+input_frame = tk.Frame(main_frame)
+input_frame.grid(row=0, column=0, pady=30, padx=40)
+
 # Chọn file INPUT
-tk.Label(root, text="Chọn file INPUT.DAT:", font=("Arial", 12)).pack(pady=5)
-input_file_button = tk.Button(root, text="Chọn file INPUT", font=("Arial", 12), command=select_input_file, bg="lightblue")
-input_file_button.pack(pady=5)
-input_file_label = tk.Label(root, text="File: Chưa chọn", font=("Arial", 10), fg="gray")
-input_file_label.pack(pady=5)
+tk.Label(input_frame, text="Chương trình mã hóa và giải mã Vigenere", font=("Arial", 20)).grid(row=0, column=0, padx=20, pady=10, sticky='w')
+input_file_button = tk.Button(input_frame, text="Chọn file cần mã hóa", font=("Arial", 12), command=select_input_file, bg="lightblue", width=25)
+input_file_button.grid(row=1, column=0, padx=150, pady=10, sticky='w')
+input_file_label = tk.Label(input_frame, text="File: Chưa chọn", font=("Arial", 10), fg="gray")
+input_file_label.grid(row=2, column=0, padx=150, pady=10, sticky='w')
 
 # Nhập khóa mã hóa
-tk.Label(root, text="Nhập khóa mã hóa:", font=("Arial", 12)).pack(pady=5)
-key_entry = tk.Entry(root, font=("Arial", 12), width=30)
-key_entry.pack(pady=5)
+tk.Label(input_frame, text="Nhập khóa mã hóa:", font=("Arial", 14)).grid(row=3, column=0, padx=150, pady=10, sticky='w')
+key_entry = tk.Entry(input_frame, font=("Arial", 12), width=30)
+key_entry.grid(row=4, column=0, padx=150, pady=10, sticky='w')
 
-button_frame = tk.Frame(root)
-button_frame.pack(pady=20)
+# Frame để chứa các nút
+button_frame = tk.Frame(main_frame)
+button_frame.grid(row=1, column=0, pady=30)
 
 # Nút mã hóa
-encrypt_button_english = tk.Button(button_frame, text="Mã hóa Vigenere", font=("Arial", 12), command=process_files, bg="lightgreen")
-encrypt_button_english.grid(row=0, column=0, padx=10)
+encrypt_button_english = tk.Button(button_frame, text="Mã hóa Vigenere", font=("Arial", 12), command=process_files, bg="lightgreen", width=20)
+encrypt_button_english.grid(row=0, column=0, padx=15, pady=10)
 
 # Nút mã hóa Tiếng Việt
-encrypt_button_vietnamese = tk.Button(button_frame, text="Mã hóa Tiếng Việt", font=("Arial", 12), command=process_files_vietnamese, bg="lightblue")
-encrypt_button_vietnamese.grid(row=0, column=1, padx=10)
+encrypt_button_vietnamese = tk.Button(button_frame, text="Mã hóa Vigenere Tiếng Việt", font=("Arial", 12), command=process_files_vietnamese, bg="lightblue", width=30)
+encrypt_button_vietnamese.grid(row=0, column=1, padx=15, pady=10)
 
 # Nút mở bảng mã hóa
-show_table_button_english = tk.Button(button_frame, text="Bảng mã Vigenere", font=("Arial", 12), command=show_vigenere_table, bg="lightgray")
-show_table_button_english.grid(row=1, column=0, padx=10, pady=10)
+show_table_button_english = tk.Button(button_frame, text="Bảng mã Vigenere", font=("Arial", 12), command=show_vigenere_table, bg="lightgray", width=20)
+show_table_button_english.grid(row=1, column=0, padx=15, pady=10)
 
 # Nút mở bảng mã hóa Tiếng Việt
-show_table_button_vietnamese = tk.Button(button_frame, text="Bảng mã Vigenere Tiếng Việt", font=("Arial", 12), command=show_vigenere_table_vietnamese, bg="lightgray")
-show_table_button_vietnamese.grid(row=1, column=1, padx=10, pady=10)
+show_table_button_vietnamese = tk.Button(button_frame, text="Bảng mã Vigenere Tiếng Việt", font=("Arial", 12), command=show_vigenere_table_vietnamese, bg="lightgray", width=30)
+show_table_button_vietnamese.grid(row=1, column=1, padx=15, pady=10)
 
-# Nút mở file OUTPUT
-open_output_button = tk.Button(root, text="Mở file OUTPUT", font=("Arial", 12), command=open_output_file, bg="lightcoral")
-open_output_button.pack(pady=10)
+# Nút giải mã file Vigenere và mở file OUTPUT cùng cột với mã hóa Vigenere
+decrypt_button = tk.Button(button_frame, text="Giải mã file Vigenere", font=("Arial", 12), command=decrypt_file, bg="lightyellow", width=20)
+decrypt_button.grid(row=3, column=0, padx=15, pady=10)
 
-# Nút mở file OUTPUT_VIETNAMESE
-open_output_button_vietnamese = tk.Button(root, text="Mở file OUTPUT Tiếng Việt", font=("Arial", 12), command=open_output_file_vietnamese, bg="lightcoral")
-open_output_button_vietnamese.pack(pady=10)
+open_output_button = tk.Button(button_frame, text="Mở file OUTPUT", font=("Arial", 12), command=open_output_file, bg="lightcoral", width=20)
+open_output_button.grid(row=2, column=0, padx=15, pady=10)
 
-# Nút giải mã file Tiếng Việt
-decrypt_button_vietnamese = tk.Button(root, text="Giải mã file Vigenere Tiếng Việt", font=("Arial", 12), command=decrypt_file_vietnamese, bg="lightyellow")
-decrypt_button_vietnamese.pack(pady=10)
+# Nút giải mã Tiếng Việt và mở file OUTPUT Tiếng Việt
+decrypt_button_vietnamese = tk.Button(button_frame, text="Giải mã file Vigenere Tiếng Việt", font=("Arial", 12), command=decrypt_file_vietnamese, bg="lightyellow", width=30)
+decrypt_button_vietnamese.grid(row=3, column=1, padx=15, pady=10)
 
+open_output_button_vietnamese = tk.Button(button_frame, text="Mở file OUTPUT Tiếng Việt", font=("Arial", 12), command=open_output_file_vietnamese, bg="lightcoral", width=30)
+open_output_button_vietnamese.grid(row=2, column=1, padx=15, pady=10)
 
-# Thêm nút giải mã vào giao diện
-decrypt_button = tk.Button(root, text="Giải mã file Vigenere", font=("Arial", 12), command=decrypt_file, bg="lightyellow")
-decrypt_button.pack(pady=10)
+# Nút Thoát để đóng chương trình
+exit_button = tk.Button(main_frame, text="Thoát", font=("Arial", 14), command=root.quit, bg="red", width=20)
+exit_button.grid(row=2, column=0, pady=30)
 
 root.mainloop()
