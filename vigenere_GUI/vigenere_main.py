@@ -2,23 +2,8 @@ import tkinter as tk
 from tkinter import messagebox, filedialog, Toplevel
 import os
 
-#Hàm mã hóa Vigenère
-def vigenere_encrypt(plaintext, key):
-    plaintext = plaintext.upper()
-    key = key.upper()
-    ciphertext = ""
-    key_index = 0
-    
-    for char in plaintext:
-        if char.isalpha():
-            shift = ord(key[key_index]) - ord('A')
-            encrypted_char = chr((ord(char) - ord('A') + shift) % 26 + ord('A'))
-            ciphertext += encrypted_char
-            key_index = (key_index + 1) % len(key)
-        else:
-            ciphertext += char
-    
-    return ciphertext
+from vigenere_org import vigenere_decrypt, vigenere_encrypt
+from vigenere_vie import vigenere_decrypt_vietnamese, vigenere_encrypt_vietnamese
 
 #Hàm chọn file INPUT.DAT
 def select_input_file():
@@ -70,25 +55,6 @@ def open_output_file():
         os.startfile(output_file_path)
     else:
         messagebox.showerror("Lỗi", "Không tìm thấy file OUTPUT.DAT! Vui lòng mã hóa trước.")
-        
-        
-# Hàm giải mã Vigenère
-def vigenere_decrypt(ciphertext, key):
-    ciphertext = ciphertext.upper()
-    key = key.upper()
-    plaintext = ""
-    key_index = 0
-
-    for char in ciphertext:
-        if char.isalpha():
-            shift = ord(key[key_index]) - ord('A')
-            decrypted_char = chr((ord(char) - ord('A') - shift) % 26 + ord('A'))
-            plaintext += decrypted_char
-            key_index = (key_index + 1) % len(key)
-        else:
-            plaintext += char
-
-    return plaintext
 
 # Hàm giải mã từ file OUTPUT.DAT
 def decrypt_file():
@@ -221,25 +187,6 @@ def convert_to_telex(text):
     
     return text
 
-def vigenere_encrypt_vietnamese(plaintext, key):
-    ciphertext = []
-    key_index = 0
-    key = key.lower()
-
-    for char in plaintext:
-        if char.isalpha():
-            is_upper = char.isupper()
-            base = ord('A') if is_upper else ord('a')
-            key_char = key[key_index % len(key)]
-            shift = ord(key_char) - ord('a')
-            encrypted_char = chr((ord(char) - base + shift) % 26 + base)
-            ciphertext.append(encrypted_char)
-            key_index += 1
-        else:
-            ciphertext.append(char)
-
-    return ''.join(ciphertext)
-
 def process_files_vietnamese():
     if not input_file_path:
         messagebox.showwarning("Cảnh báo", "Vui lòng chọn file INPUT.DAT!")
@@ -288,29 +235,6 @@ def convert_from_telex(telex_text):
     for telex_char, vi_char in reverse_telex_dict.items():
         telex_text = telex_text.replace(telex_char, vi_char)
     return telex_text
-
-# Cập nhật hàm giải mã Vigenère để chuyển từ Telex về Tiếng Việt
-def vigenere_decrypt_vietnamese(ciphertext, key):
-    # Giải mã Vigenère ban đầu
-    plaintext = []
-    key_index = 0
-    key = key.lower()
-
-    for char in ciphertext:
-        if char.isalpha():
-            is_upper = char.isupper()
-            base = ord('A') if is_upper else ord('a')
-            key_char = key[key_index % len(key)]
-            shift = ord(key_char) - ord('a')
-            decrypted_char = chr((ord(char) - base - shift) % 26 + base)
-            plaintext.append(decrypted_char)
-            key_index += 1
-        else:
-            plaintext.append(char)
-
-    # Chuyển đổi từ Telex về Tiếng Việt
-    decrypted_text = ''.join(plaintext)
-    return convert_from_telex(decrypted_text)
 
 # Cập nhật hàm giải mã file
 def decrypt_file_vietnamese():
